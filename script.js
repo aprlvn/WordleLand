@@ -36,40 +36,8 @@
   const definitionTextEl = document.getElementById("definition-text");
   const definitionExampleEl = document.getElementById("definition-example");
   const definitionRelatedEl = document.getElementById("definition-related");
-  const nativeInput = document.getElementById("native-input");
 
   const validWords = new Set(WORDS);
-
-  // --- Touch devices: use the phone's own keyboard instead of on-screen keys ---
-  const isTouchDevice =
-    window.matchMedia && window.matchMedia("(hover: none) and (pointer: coarse)").matches;
-
-  function focusNativeInput() {
-    if (!isTouchDevice || gameOver) return;
-    nativeInput.focus({ preventScroll: true });
-  }
-
-  if (isTouchDevice) {
-    boardEl.addEventListener("click", focusNativeInput);
-
-    nativeInput.addEventListener("input", () => {
-      const letters = nativeInput.value.toUpperCase().replace(/[^A-Z]/g, "");
-      nativeInput.value = "";
-      for (const letter of letters) {
-        handleKey(letter);
-      }
-    });
-
-    nativeInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") {
-        e.preventDefault();
-        handleKey("ENTER");
-      } else if (e.key === "Backspace") {
-        e.preventDefault();
-        handleKey("BACK");
-      }
-    });
-  }
 
   // --- Dictionary lookups (for hints & the educational word recap) ---
   // Primary source: Wiktionary's REST API (Wikimedia infrastructure, CORS-enabled).
@@ -499,7 +467,6 @@
     stopTimer();
     lockRoundControls();
     hideHintBox();
-    if (isTouchDevice) nativeInput.blur();
     const finalTime = formatTime(elapsedSeconds);
     setTimeout(() => {
       if (won) {
@@ -530,7 +497,6 @@
     stopTimer();
     lockRoundControls();
     hideHintBox();
-    if (isTouchDevice) nativeInput.blur();
     const finalTime = formatTime(elapsedSeconds);
     playLoseSound();
     revealGiveUpRow(() => {
@@ -636,15 +602,9 @@
   });
 
   helpBtn.addEventListener("click", () => helpModal.classList.remove("hidden"));
-  closeHelp.addEventListener("click", () => {
-    helpModal.classList.add("hidden");
-    focusNativeInput();
-  });
+  closeHelp.addEventListener("click", () => helpModal.classList.add("hidden"));
   helpModal.addEventListener("click", (e) => {
-    if (e.target === helpModal) {
-      helpModal.classList.add("hidden");
-      focusNativeInput();
-    }
+    if (e.target === helpModal) helpModal.classList.add("hidden");
   });
 
   closeEnd.addEventListener("click", () => endModal.classList.add("hidden"));
@@ -659,14 +619,8 @@
     if (gameOver) return;
     giveupModal.classList.remove("hidden");
   });
-  closeGiveupBtn.addEventListener("click", () => {
-    giveupModal.classList.add("hidden");
-    focusNativeInput();
-  });
-  cancelGiveupBtn.addEventListener("click", () => {
-    giveupModal.classList.add("hidden");
-    focusNativeInput();
-  });
+  closeGiveupBtn.addEventListener("click", () => giveupModal.classList.add("hidden"));
+  cancelGiveupBtn.addEventListener("click", () => giveupModal.classList.add("hidden"));
   confirmGiveupBtn.addEventListener("click", giveUp);
   giveupModal.addEventListener("click", (e) => {
     if (e.target === giveupModal) giveupModal.classList.add("hidden");
@@ -687,7 +641,6 @@
     buildBoard();
     buildKeyboard();
     startTimer();
-    focusNativeInput();
   }
 
   newGameBtn.addEventListener("click", newGame);
