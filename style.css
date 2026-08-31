@@ -39,6 +39,12 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+html {
+  background: var(--bg-3);
 }
 
 body {
@@ -49,7 +55,6 @@ body {
   animation: bg-shift 18s ease-in-out infinite;
   color: var(--text);
   font-family: "Segoe UI", system-ui, -apple-system, Roboto, Helvetica, Arial, sans-serif;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -212,9 +217,9 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 14px 16px 18px;
-  gap: 12px;
+  gap: 16px;
 }
 
 .timer-badge {
@@ -424,6 +429,7 @@ body {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-top: 6px;
 }
 
 .keyboard-row {
@@ -704,73 +710,16 @@ body {
   font-weight: 700;
 }
 
-.native-input {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: 0;
-  border: none;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.tap-hint {
-  display: none;
-  margin: 0;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--muted);
-  text-align: center;
-  animation: pulse-hint 2s ease-in-out infinite;
-}
-
-@keyframes pulse-hint {
-  0%, 100% { opacity: 0.6; }
-  50% { opacity: 1; }
-}
-
-/* Touch devices: hand typing off to the phone's own keyboard instead of
-   rendering our on-screen keys, freeing vertical space for the board. */
-@media (hover: none) and (pointer: coarse) {
-  .keyboard {
-    display: none;
-  }
-  .tap-hint {
-    display: block;
-  }
-  .board {
-    cursor: pointer;
-  }
-}
-
-@media (max-width: 480px) {
-  .board {
-    width: min(300px, 82vw);
-    gap: 6px;
-  }
-  .board-row {
-    gap: 6px;
-  }
-  .tile {
-    font-size: 1.5rem;
-    border-radius: 8px;
-  }
-}
-
-@media (max-width: 400px) {
+/* Mobile only (web/desktop above 600px is untouched). Sized so the board,
+   Hint/Give Up row, and full keyboard all fit within a typical phone's
+   visible viewport without scrolling. */
+@media (max-width: 600px) {
   .title {
     font-size: 1.35rem;
     letter-spacing: 0.04rem;
   }
   .subtitle {
     font-size: 0.62rem;
-  }
-  .key {
-    height: 46px;
-    font-size: 0.8rem;
   }
   .icon-btn {
     width: 34px;
@@ -781,8 +730,36 @@ body {
     padding: 4px 8px;
     font-size: 0.72rem;
   }
+
+  .game {
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 14px 14px 16px;
+  }
+
+  .board {
+    gap: 5px;
+    width: min(210px, 62vw);
+  }
+  .board-row {
+    gap: 5px;
+  }
+  .tile {
+    font-size: 1.1rem;
+    border-radius: 7px;
+  }
+
   .action-btn {
-    font-size: 0.72rem;
-    padding: 7px 6px;
+    font-size: 0.9rem;
+    padding: 9px 8px;
+  }
+
+  .keyboard {
+    gap: 6px;
+    margin-top: 4px;
+  }
+  .key {
+    height: 44px;
+    font-size: 0.85rem;
   }
 }
