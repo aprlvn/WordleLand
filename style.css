@@ -704,6 +704,62 @@ body {
   font-weight: 700;
 }
 
+.native-input {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: 0;
+  border: none;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.tap-hint {
+  display: none;
+  margin: 0;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-align: center;
+  animation: pulse-hint 2s ease-in-out infinite;
+}
+
+@keyframes pulse-hint {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+/* Touch devices: hand typing off to the phone's own keyboard instead of
+   rendering our on-screen keys, freeing vertical space for the board. */
+@media (hover: none) and (pointer: coarse) {
+  .keyboard {
+    display: none;
+  }
+  .tap-hint {
+    display: block;
+  }
+  .board {
+    cursor: pointer;
+  }
+}
+
+@media (max-width: 480px) {
+  .board {
+    width: min(300px, 82vw);
+    gap: 6px;
+  }
+  .board-row {
+    gap: 6px;
+  }
+  .tile {
+    font-size: 1.5rem;
+    border-radius: 8px;
+  }
+}
+
 @media (max-width: 400px) {
   .title {
     font-size: 1.35rem;
