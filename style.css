@@ -733,20 +733,20 @@ body {
 
   .game {
     justify-content: flex-start;
-    gap: 12px;
+    gap: 8px;
     padding: 14px 14px 16px;
   }
 
   .board {
-    gap: 5px;
-    width: min(210px, 62vw);
+    gap: 4px;
+    width: min(178px, 53vw);
   }
   .board-row {
-    gap: 5px;
+    gap: 4px;
   }
   .tile {
-    font-size: 1.1rem;
-    border-radius: 7px;
+    font-size: 0.95rem;
+    border-radius: 6px;
   }
 
   .action-btn {
