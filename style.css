@@ -738,15 +738,15 @@ body {
   }
 
   .board {
-    gap: 4px;
-    width: min(178px, 53vw);
+    gap: 5px;
+    width: min(196px, 58vw);
   }
   .board-row {
-    gap: 4px;
+    gap: 5px;
   }
   .tile {
-    font-size: 0.95rem;
-    border-radius: 6px;
+    font-size: 1.05rem;
+    border-radius: 7px;
   }
 
   .action-btn {
@@ -756,7 +756,7 @@ body {
 
   .keyboard {
     gap: 6px;
-    margin-top: 4px;
+    margin-top: 6px;
   }
   .key {
     height: 44px;
